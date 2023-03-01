@@ -1,5 +1,5 @@
 """Deployment of Financial Inclusion model. Utilities"""
-
+import pandas as pd
 
 # helper functions for wrangle function
 
@@ -31,17 +31,19 @@ def group_age(x):
     if x>=95 and x<=105:
         return (9)
 
-def wrangle(input, test=False):
+def wrangle(input: pd.DataFrame, test=False):
     """ Wrangle function to process user input
     
     Args:
-        filepath (str): path to the file containing data
+        input (pd.DataFrame): input data to predict on
         test (bool): False, track test file for necessary differences
                             in processing
     Return:
         df (pd.DataFrame): result of the wrangling process
     """
-    df = pd.read_csv(input)
+
+    # if a df is passed in, no need to read from any csv
+    df = input
     
     # conert year to a datetime type
     df.year = pd.to_datetime(df.year.astype('int32'), format='%Y')
@@ -69,3 +71,30 @@ def wrangle(input, test=False):
     df.drop(columns=['uniqueid', 'age_of_respondent', 'household_size'], inplace=True)
 
     return df
+
+def get_options(filepath="../data/Train.csv"):
+    """Extract options from the categorical variables instead of typing manual
+    
+    Args:
+        filepath (str): path to the data = "../data/Train.csv"
+
+    Return:
+        cat_options (dict): dictionary with key:value of columns(str):options(list)
+    """
+
+    # load dataframe
+    df = pd.read_csv(filepath)
+    # extract categorical columns
+    cat_cols = df.select_dtypes("object").columns
+    # loop through eac to extract options and store in cat_options
+    cat_options = {}
+    for cat_col in cat_cols:
+        cat_options[cat_col] = df[cat_col].unique()
+    del cat_options['uniqueid'] # this is not needed
+
+    return cat_options
+
+
+# print(get_options())
+
+
