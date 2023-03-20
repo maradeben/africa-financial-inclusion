@@ -1,11 +1,20 @@
 from utils import wrangle
 import pickle
+import wget
 
 # load model
 path_to_model = '../models/final_model.pkl'
 
-with open(path_to_model, 'rb') as file:
-    model = pickle.load(file)
+
+try:
+    with open(path_to_model, 'rb') as file:
+        model = pickle.load(file)
+except:
+    url = 'https://github.com/maradeben/africa-financial-inclusion/raw/master/models/inclusion_model2.pkl'
+    file = wget.download(url = url)
+    with open(file, 'rb') as mod:
+        model = pickle.load(mod)
+
     
 
 def predict(data):
