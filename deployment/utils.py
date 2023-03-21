@@ -1,6 +1,5 @@
 """Deployment of Financial Inclusion model. Utilities"""
 import pandas as pd
-import wget
 
 # helper functions for wrangle function
 
@@ -84,13 +83,7 @@ def get_options(filepath="../data/Train.csv"):
     """
 
     # load dataframe
-    try:
-        df = pd.read_csv(filepath)
-    except:
-        url = "https://github.com/maradeben/africa-financial-inclusion/raw/master/data/Train.csv"
-        file = wget.download(url = url)
-        df = pd.read_csv(file)
-
+    df = pd.read_csv(filepath)
     # extract categorical columns
     cat_cols = df.select_dtypes("object").columns
     # loop through eac to extract options and store in cat_options
