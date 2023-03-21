@@ -1,8 +1,14 @@
 from utils import wrangle
 import pickle
+import path
+import sys
+
+
+dir = path.Path(__file__).abspath()
+sys.path.append(dir.parent.parent)
 
 # load model
-path_to_model = '../models/final_model.pkl'
+path_to_model = './models/final_model.pkl'
 
 
 with open(path_to_model, 'rb') as file:

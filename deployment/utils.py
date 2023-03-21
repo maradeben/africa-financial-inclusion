@@ -1,5 +1,11 @@
 """Deployment of Financial Inclusion model. Utilities"""
 import pandas as pd
+import path
+import sys
+
+
+dir = path.Path(__file__).abspath()
+sys.path.append(dir.parent.parent)
 
 # helper functions for wrangle function
 
@@ -72,11 +78,11 @@ def wrangle(input: pd.DataFrame, test=False):
 
     return df
 
-def get_options(filepath="../data/Train.csv"):
+def get_options(filepath="./data/Train.csv"):
     """Extract options from the categorical variables instead of typing manual
     
     Args:
-        filepath (str): path to the data = "../data/Train.csv"
+        filepath (str): path to the data = "./data/Train.csv"
 
     Return:
         cat_options (dict): dictionary with key:value of columns(str):options(list)
