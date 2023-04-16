@@ -9,7 +9,7 @@ from prediction import predict
 cat_options = get_options()
 
 
-st.title("Prediciting Financial Inclusion in Africa")
+st.title("Predicting Financial Inclusion in Africa")
 st.write("To predict a person whether a person is likely to have a bank account, enter their details:")
 # st.text("Country")
 country = st.selectbox("Country", cat_options['country'])
